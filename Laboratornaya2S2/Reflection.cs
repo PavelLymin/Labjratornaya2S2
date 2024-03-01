@@ -10,6 +10,7 @@ namespace Laboratornaya2S2
     public class Reflection
     {
         private List<object> ObjectList { get; set; }
+        public int i;
 
         public Reflection() 
         {
