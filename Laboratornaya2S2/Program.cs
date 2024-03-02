@@ -14,8 +14,8 @@ namespace Laboratornaya2S2
             A class1 = new A();
             B class2 = new B();
             C class3 = new C(); 
-            Controllist.Add(class1);
             Controllist.Add(class2);
+            Controllist.Add(class1);
             Controllist.Add(class3);
 
             Reflection reflection = new Reflection();

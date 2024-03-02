@@ -39,8 +39,7 @@ namespace Laboratornaya2S2
             {
                 if (ObjectList[i].GetType() != ControlList[i].GetType())
                 {
-                    int index = ControlList.IndexOf(ControlList[i]);
-                    item += $"Найдено расхождение в типах \nВ позиции: {index} \nПолучено: {ControlList[i].GetType().Name} \nОжидалось: {ObjectList[i].GetType().Name} \n\n";
+                    item += $"Найдено расхождение в типах \nВ позиции: {i} \nПолучено: {ControlList[i].GetType().Name} \nОжидалось: {ObjectList[i].GetType().Name} \n\n";
                     item2 = false;
                 }
             }
@@ -49,20 +48,32 @@ namespace Laboratornaya2S2
                 item += $"Не найдено расхождения в типах \n\n";
             }
 
+
+
             //4 условие
-            for (int i = 0; i < ObjectList.Count; i++)
+            for (int i = 0; i < ObjectList.Count; i++) 
             {
-                var fieldsObjectList = ObjectList[i].GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                //var fieldsControlList = ControlList[i].GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
-                foreach (var obj in fieldsObjectList)
+                var fieldObjList = ObjectList[i].GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+                var fieldCntrList = ControlList[i].GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+                foreach(var  field1 in fieldObjList)
                 {
-                    var valueObj = obj.GetValue(ObjectList[i]);
-                    var valueControl = obj.GetValue(ControlList[i]);
+                    var valuefld1 = field1.GetValue(ObjectList[i]);
 
-                    if (valueObj != valueControl)
+                    foreach (var field2 in fieldCntrList)
                     {
-                        item += $"Расхождение в значении поля '{obj.Name}' {valueControl} {valueObj} объекта на позиции {i + 1}.";
+                        var valuefld2 = field2.GetValue(ControlList[i]);
+
+                        if (field1.Name == field2.Name)
+                        {
+
+                            if (!valuefld1.Equals(valuefld2))
+                            {
+                                item += $"\nНайдено расхаждение в значениях в позиции: {i}\n" +
+                                    $"В поле: {field1.Name} \n" +
+                                    $"Получено: {valuefld2}\n" +
+                                    $"Ожидалось: {valuefld1}";
+                            }
+                        }
                     }
                 }
             }

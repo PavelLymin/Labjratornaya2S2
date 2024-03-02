@@ -8,8 +8,8 @@ namespace Laboratornaya2S2
 {
     public class C
     {
-        public int num7 = 0;
-        public string num8 = "Hello";
-        private int num9 = 27;
+        public int num1  = 0;
+        public string num2  = "Hello";
+        private int num3 = 27;
     }
 }
