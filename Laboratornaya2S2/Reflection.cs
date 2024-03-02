@@ -33,7 +33,7 @@ namespace Laboratornaya2S2
             else item = "Тест 1 \nСписки не равны \n\n";
 
             //3 условие
-            item += "\nТест 2 \n";
+            item += "\nТест 3 \n";
             bool item2 = true;
             for (int i = 0; i < ObjectList.Count; i++)
             {
@@ -48,9 +48,8 @@ namespace Laboratornaya2S2
                 item += $"Не найдено расхождения в типах \n\n";
             }
 
-
-
             //4 условие
+            item += "\nТест 4\n";
             for (int i = 0; i < ObjectList.Count; i++) 
             {
                 var fieldObjList = ObjectList[i].GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
@@ -71,7 +70,7 @@ namespace Laboratornaya2S2
                                 item += $"\nНайдено расхаждение в значениях в позиции: {i}\n" +
                                     $"В поле: {field1.Name} \n" +
                                     $"Получено: {valuefld2}\n" +
-                                    $"Ожидалось: {valuefld1}";
+                                    $"Ожидалось: {valuefld1}\n";
                             }
                         }
                     }
