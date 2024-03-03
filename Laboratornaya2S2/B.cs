@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace Laboratornaya2S2
 {
+    [NotComparable(true)]
     public class B
     {
-        public int num1 { get; set; } = 0;
-        public string num2 { get; set; } = "Helo";
-        private int num3 { get; set; } = 27;
+        public int num1 { get; set; } 
+        public string num2 { get; set; } 
+        private int num3 { get; set; } 
+
+        public B (int num1, string num2, int num3)
+        {
+            this.num1 = num1;
+            this.num2 = num2;
+            this.num3 = num3;
+        }
     }
 }
