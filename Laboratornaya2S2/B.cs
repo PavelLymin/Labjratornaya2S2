@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Laboratornaya2S2
 {
-    [NotComparable(true)]
+    [NotComparable]
     public class B
     {
         public int num1 { get; set; } 

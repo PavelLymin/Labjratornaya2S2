@@ -8,11 +8,6 @@ namespace Laboratornaya2S2
 {
     public class Unreadable: Attribute
     {
-        public bool itogU {  get; set; }
 
-        public Unreadable(bool itogU)
-        {
-            this.itogU = itogU;
-        }
     }
 }

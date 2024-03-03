@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Laboratornaya2S2
 {
-    [Unreadable(true)]
+    [Unreadable]
     public class A
     {
         public int num1 { get; set; }

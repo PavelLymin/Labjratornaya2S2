@@ -30,7 +30,7 @@ namespace Laboratornaya2S2
             //1 условие
             string item;
             if (ControlList.Count == ObjectList.Count)
-                item = "Тест 1 \nСписки равны \n\n";
+                item = "Тест 1 \nСписки равны \n";
             else item = "Тест 1 \nСписки не равны \n";
 
             //2 условие
@@ -39,7 +39,7 @@ namespace Laboratornaya2S2
             {
                 Type type = ObjectList[i].GetType();
 
-                object[] attributes = type.GetCustomAttributes(true);
+                object[] attributes = type.GetCustomAttributes(false);
 
                 foreach (object attribute in attributes) 
                 {
@@ -73,23 +73,24 @@ namespace Laboratornaya2S2
 
             //4 условие
             item += "\nТест 4";
+            bool item3 = true;
             for (int i = 0; i < ObjectList.Count; i++) 
             {
-                var fieldObjList = ObjectList[i].GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
-                var fieldCntrList = ControlList[i].GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
-                foreach(var  field1 in fieldObjList)
+                PropertyInfo[] fieldObjList = ObjectList[i].GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+                PropertyInfo[] fieldCntrList = ControlList[i].GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+                foreach(PropertyInfo field1 in fieldObjList)
                 {
                     var valuefld1 = field1.GetValue(ObjectList[i]);
 
-                    foreach (var field2 in fieldCntrList)
+                    foreach (PropertyInfo field2 in fieldCntrList)
                     {
                         var valuefld2 = field2.GetValue(ControlList[i]);
 
                         if (ObjectList[i].GetType() == ControlList[i].GetType() && field1.Name == field2.Name)
                         {
-
-                            if (!valuefld1.Equals(valuefld2))
+                            if (valuefld1.ToString() != valuefld2.ToString())
                             {
+                                item3 = false;
                                 item += $"\nНайдено расхождение в значениях в позиции: {i}\n" +
                                     $"В поле: {field1.Name} \n" +
                                     $"Получено: {valuefld2}\n" +
@@ -98,6 +99,10 @@ namespace Laboratornaya2S2
                         }
                     }
                 }
+            }
+            if (item3) 
+            {
+                item += "Расхождений не найдено";
             }
             return item;
         }
