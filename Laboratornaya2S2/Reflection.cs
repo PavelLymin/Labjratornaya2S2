@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -49,11 +50,11 @@ namespace Laboratornaya2S2
             }
 
             //4 условие
-            item += "\nТест 4\n";
+            item += "\nТест 4";
             for (int i = 0; i < ObjectList.Count; i++) 
             {
-                var fieldObjList = ObjectList[i].GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
-                var fieldCntrList = ControlList[i].GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+                var fieldObjList = ObjectList[i].GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+                var fieldCntrList = ControlList[i].GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
                 foreach(var  field1 in fieldObjList)
                 {
                     var valuefld1 = field1.GetValue(ObjectList[i]);

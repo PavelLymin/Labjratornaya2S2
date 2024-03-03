@@ -8,8 +8,8 @@ namespace Laboratornaya2S2
 {
     public class B
     {
-        public int num1 = 0;
-        public string num2 = "Helo";
-        private int num3 = 27;
+        public int num1 { get; set; } = 0;
+        public string num2 { get; set; } = "Helo";
+        private int num3 { get; set; } = 27;
     }
 }
