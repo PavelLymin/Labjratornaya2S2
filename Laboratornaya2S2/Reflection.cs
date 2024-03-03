@@ -34,7 +34,7 @@ namespace Laboratornaya2S2
             else item = "Тест 1 \nСписки не равны \n";
 
             //2 условие
-            item += "\nТест 3\n";
+            item += "\nТест 2\n";
             for (int i = 0; i < ObjectList.Count; i++)
             {
                 Type type = ObjectList[i].GetType();
