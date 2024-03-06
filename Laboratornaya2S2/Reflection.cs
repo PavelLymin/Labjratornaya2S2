@@ -6,12 +6,13 @@ using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Laboratornaya2S2
 {
     public class Reflection
     {
-        private List<object> ObjectList { get; set; }
+        public List<object> ObjectList { get; set; }
 
         public Reflection()
         {
@@ -19,61 +20,52 @@ namespace Laboratornaya2S2
         }
 
         public string Comparison(List<object> ControlList)
-        {
-            A class1 = new A(0 , "Hello", 27);
-            B class2 = new B(0, "Hello", 27);
-            C class3 = new C(0, "Hello", 27);
-            ObjectList.Add(class1);
-            ObjectList.Add(class2);
-            ObjectList.Add(class3);
-           
+        {           
             //1 условие
-            string item;
-            if (ControlList.Count == ObjectList.Count)
-                item = "Тест 1 \nСписки равны \n";
-            else item = "Тест 1 \nСписки не равны \n";
+            string item = "";
+            bool item3 = true;
+            if (ControlList.Count != ObjectList.Count)
+            {
+                item3 = false;
+                item += "Списки не равны \n";
+            }
 
             //2 условие
-            item += "\nТест 2\n";
             for (int i = 0; i < ObjectList.Count; i++)
             {
                 Type type = ObjectList[i].GetType();
 
                 object[] attributes = type.GetCustomAttributes(false);
 
-                foreach (object attribute in attributes) 
+                foreach (object attribute in attributes)
                 {
                     if (attribute is NotComparable notComparable)
                     {
                         item += $"Найден не читаемый тип: {type.Name}\n" +
                             $"В позиции {i}\n";
                     }
-                    if (attribute is Unreadable unreadable)
+                }
+                PropertyInfo[] props = type.GetProperties();
+                foreach (var prop in props)
+                {
+                    if (prop.GetCustomAttribute<Unreadable>() != null)
                     {
-                        item += $"Проверка на наличие атрибута Unreadable : {Attribute.IsDefined(type, typeof(Unreadable))}\n";
+                        item += $"Свойство {prop.Name} имеет атрибут Unreadable\n";
                     }
                 }
             }
 
             //3 условие
-            item += "\nТест 3 \n";
-            bool item2 = true;
             for (int i = 0; i < ObjectList.Count; i++)
             {
                 if (ObjectList[i].GetType() != ControlList[i].GetType())
                 {
-                    item += $"Найдено расхождение в типах \nВ позиции: {i} \nПолучено: {ControlList[i].GetType().Name} \nОжидалось: {ObjectList[i].GetType().Name} \n\n";
-                    item2 = false;
+                    item3 = false;
+                    item += $"\nНайдено расхождение в типах \nВ позиции: {i} \nПолучено: {ControlList[i].GetType().Name} \nОжидалось: {ObjectList[i].GetType().Name} \n\n";
                 }
-            }
-            if (item2) 
-            {
-                item += $"Не найдено расхождения в типах \n\n";
             }
 
             //4 условие
-            item += "\nТест 4";
-            bool item3 = true;
             for (int i = 0; i < ObjectList.Count; i++) 
             {
                 PropertyInfo[] fieldObjList = ObjectList[i].GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
@@ -102,7 +94,7 @@ namespace Laboratornaya2S2
             }
             if (item3) 
             {
-                item += "Расхождений не найдено";
+                item += "Расхождений не найдено\n";
             }
             return item;
         }
